@@ -33,10 +33,10 @@ public class Idoso {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "contato_emergencia", nullable = false, length = 100)
+    @Column(name = "contato_emergencia", length = 100)
     private String contatoEmergencia;
 
-    @Column(name = "telefone_emergencia", nullable = false, length = 15)
+    @Column(name = "telefone_emergencia", length = 15)
     private String telefoneEmergencia;
 
     @Column(name = "necessita_acessibilidade", nullable = false)
