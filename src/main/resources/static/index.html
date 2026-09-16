@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mão Amiga</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topo">
+
+    <div class="logo">
+        <span class="logo-icone">🤝</span>
+
+        <div>
+            <h1>Mão Amiga</h1>
+            <p>Facilitando o seu dia</p>
+        </div>
+    </div>
+
+    <button class="botao-fonte" onclick="aumentarFonte()">
+        🔠 Aumentar texto
+    </button>
+
+</header>
+
+
+<main>
+
+    <!-- HOME -->
+
+    <section id="home" class="tela ativa">
+
+        <div class="boas-vindas">
+
+            <span>👋</span>
+
+            <div>
+                <h2>Olá!</h2>
+                <p>Como podemos ajudar você hoje?</p>
+            </div>
+
+        </div>
+
+
+        <div class="menu">
+
+            <button class="card-menu" onclick="mostrarTela('responsaveis')">
+
+                <span>👥</span>
+
+                <strong>Responsáveis</strong>
+
+                <small>
+                    Gerencie as pessoas responsáveis
+                </small>
+
+            </button>
+
+
+            <button class="card-menu" onclick="mostrarTela('rotina')">
+
+                <span>📅</span>
+
+                <strong>Minha rotina</strong>
+
+                <small>
+                    Veja seus horários e atividades
+                </small>
+
+            </button>
+
+
+            <button class="card-menu">
+
+                <span>📱</span>
+
+                <strong>Mais aplicativos</strong>
+
+                <small>
+                    Acesse seus aplicativos favoritos
+                </small>
+
+            </button>
+
+
+            <button class="card-menu">
+
+                <span>⚙️</span>
+
+                <strong>Configurações</strong>
+
+                <small>
+                    Personalize sua experiência
+                </small>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- RESPONSÁVEIS -->
+
+    <section id="responsaveis" class="tela">
+
+        <button class="voltar" onclick="mostrarTela('home')">
+            ← Voltar
+        </button>
+
+
+        <div class="titulo-pagina">
+
+            <span>👥</span>
+
+            <div>
+                <h2>Responsáveis</h2>
+
+                <p>
+                    Pessoas que ajudam e cuidam de você
+                </p>
+            </div>
+
+        </div>
+
+
+        <button class="botao-principal" onclick="abrirFormularioResponsavel()">
+            ＋ Adicionar responsável
+        </button>
+
+
+        <div id="mensagemResponsavel" class="mensagem escondido"></div>
+
+
+        <div id="listaResponsaveis" class="lista">
+
+            <p class="carregando">
+                Carregando responsáveis...
+            </p>
+
+        </div>
+
+
+        <div id="formularioResponsavel" class="formulario escondido">
+
+            <h3>Adicionar responsável</h3>
+
+
+            <label for="nome">
+                Nome
+            </label>
+
+            <input
+                    id="nome"
+                    type="text"
+                    placeholder="Digite o nome"
+            >
+
+
+            <label for="cpf">
+                CPF
+            </label>
+
+            <input
+                    id="cpf"
+                    type="text"
+                    placeholder="Digite o CPF"
+            >
+
+
+            <label for="telefone">
+                Telefone
+            </label>
+
+            <input
+                    id="telefone"
+                    type="text"
+                    placeholder="Digite o telefone"
+            >
+
+
+            <label for="email">
+                E-mail
+            </label>
+
+            <input
+                    id="email"
+                    type="email"
+                    placeholder="Digite o e-mail"
+            >
+
+
+            <label for="tipoVinculo">
+                Tipo de vínculo
+            </label>
+
+            <input
+                    id="tipoVinculo"
+                    type="text"
+                    placeholder="Ex.: Filho, filha, neto"
+            >
+
+
+            <label for="idIdoso">
+                ID do idoso
+            </label>
+
+            <input
+                    id="idIdoso"
+                    type="number"
+                    placeholder="Digite o ID do idoso"
+            >
+
+
+            <div class="botoes-formulario">
+
+                <button
+                        class="botao-cancelar"
+                        onclick="fecharFormularioResponsavel()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                        class="botao-principal"
+                        onclick="cadastrarResponsavel()"
+                >
+                    Cadastrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ROTINA -->
+
+    <section id="rotina" class="tela">
+
+        <button class="voltar" onclick="mostrarTela('home')">
+            ← Voltar
+        </button>
+
+
+        <div class="titulo-pagina">
+
+            <span>📅</span>
+
+            <div>
+
+                <h2>Minha rotina</h2>
+
+                <p>
+                    Organize seus horários e atividades
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+                class="botao-principal"
+                onclick="abrirFormularioRotina()"
+        >
+            ＋ Adicionar atividade
+        </button>
+
+
+        <div id="mensagemRotina" class="mensagem escondido"></div>
+
+
+        <div id="listaRotina" class="lista">
+
+            <p class="carregando">
+                Carregando rotina...
+            </p>
+
+        </div>
+
+
+        <div id="formularioRotina" class="formulario escondido">
+
+            <h3>Adicionar atividade</h3>
+
+
+            <label for="descricaoRotina">
+                Atividade
+            </label>
+
+            <input
+                    id="descricaoRotina"
+                    type="text"
+                    placeholder="Ex.: Tomar água"
+            >
+
+
+            <label for="horarioRotina">
+                Horário
+            </label>
+
+            <input
+                    id="horarioRotina"
+                    type="time"
+            >
+
+
+            <div class="botoes-formulario">
+
+                <button
+                        class="botao-cancelar"
+                        onclick="fecharFormularioRotina()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                        class="botao-principal"
+                        onclick="cadastrarRotina()"
+                >
+                    Cadastrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        🤝 Mão Amiga • Tecnologia para facilitar o seu dia
+    </p>
+
+</footer>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
