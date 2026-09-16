@@ -31,7 +31,4 @@ public class Responsavel {
 
     @Column(name = "tipo_vinculo", nullable = false, length = 50)
     private String tipo_vinculo;
-
-    @Column(name = "id_idoso", nullable = false)
-    private Integer idIdoso;
 }
