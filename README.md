@@ -24,7 +24,7 @@ Entre os objetivos estão:
 * Reduzir a complexidade da interface.
 * Melhorar a visualização de textos e elementos.
 * Organizar informações importantes de maneira simples.
-* Permitir o gerenciamento de informações relacionadas à rotina e responsáveis.
+* Permitir o gerenciamento de informações relacionadas à rotina, idosos e responsáveis.
 * Explorar recursos de inteligência artificial para interação por comandos de voz.
 * Desenvolver uma solução considerando princípios de acessibilidade.
 
@@ -65,17 +65,23 @@ O Mão Amiga busca abordar esses problemas através de uma interface mais simple
 * [x] Integração com banco de dados MySQL.
 * [x] CRUD de responsáveis.
 * [x] CRUD de rotina.
+* [x] CRUD inicial de idosos.
 * [x] API REST.
 * [x] Frontend integrado ao backend.
 * [x] Cadastro de responsáveis pela interface.
 * [x] Visualização de responsáveis.
 * [x] Cadastro de atividades da rotina.
 * [x] Visualização da rotina.
+* [x] Cadastro e gerenciamento de informações do idoso.
+* [x] Associação do idoso a um responsável.
 * [x] Recurso inicial para aumento do tamanho do texto.
 * [x] Mensagens de sucesso e erro diretamente na interface.
 
 ### Em desenvolvimento
 
+* [ ] Refinamento do CRUD de idosos.
+* [ ] Melhorias na forma de seleção e identificação do responsável.
+* [ ] Separação e organização da interface em componentes/arquivos menores.
 * [ ] Integração dos demais módulos do banco de dados.
 * [ ] Desenvolvimento dos CRUDs restantes.
 * [ ] Integração dos novos módulos com o frontend.
@@ -84,6 +90,28 @@ O Mão Amiga busca abordar esses problemas através de uma interface mais simple
 * [ ] Abertura de aplicativos através de comandos.
 * [ ] Testes adicionais de acessibilidade.
 * [ ] Refinamento da interface.
+
+---
+
+## 👴 Módulo de idosos
+
+Durante o desenvolvimento do projeto, **Edson e Diego discutiram a estrutura e as necessidades relacionadas ao módulo de idosos**, considerando tanto as informações necessárias para o sistema quanto a experiência do usuário.
+
+A partir dessas discussões, o módulo passou a considerar informações relacionadas ao idoso, seus dados de contato, acessibilidade e vínculo com um responsável.
+
+Também foi considerada a necessidade de evitar que detalhes técnicos do banco de dados sejam expostos diretamente ao usuário. Por exemplo, o identificador interno do responsável deve ser utilizado pelo sistema, enquanto a interface deve apresentar informações compreensíveis para o usuário.
+
+O módulo também considera recursos como:
+
+* Cadastro de informações básicas do idoso.
+* Informações de contato.
+* Informações relacionadas à acessibilidade.
+* Tamanho da fonte.
+* Contato para emergência.
+* Associação com um responsável.
+* Operações de cadastro, consulta, atualização e exclusão.
+
+Essas funcionalidades continuam sendo refinadas conforme o desenvolvimento do projeto.
 
 ---
 
@@ -180,13 +208,25 @@ O projeto possui uma API REST para comunicação entre o frontend e o backend.
 
 ### Rotina
 
-| Método | Endpoint                  | Função                     |
-| ------ | ------------------------- | -------------------------- |
-| POST   | `/rotina/registrarRotina` | Cadastrar atividade        |
-| GET    | `/rotina/listarRotina`    | Listar atividades          |
-| GET    | `/rotina/...`             | Demais operações do módulo |
+| Método | Endpoint                  | Função                  |
+| ------ | ------------------------- | ----------------------- |
+| POST   | `/rotina/registrarRotina` | Cadastrar atividade     |
+| GET    | `/rotina/listarRotina`    | Listar atividades       |
+| GET    | `/rotina/buscarIdRotina`  | Buscar atividade por ID |
+| PUT    | `/rotina/atualizarRotina` | Atualizar atividade     |
+| DELETE | `/rotina/deletarRotina`   | Excluir atividade       |
 
-> A documentação completa dos endpoints será atualizada conforme os módulos restantes forem implementados.
+### Idosos
+
+| Método | Endpoint                  | Função              |
+| ------ | ------------------------- | ------------------- |
+| POST   | `/idoso/cadastrarIdoso`   | Cadastrar idoso     |
+| GET    | `/idoso/listarIdoso`      | Listar idosos       |
+| GET    | `/idoso/buscarIdosoPorId` | Buscar idoso por ID |
+| PUT    | `/idoso/atualizarIdoso`   | Atualizar idoso     |
+| DELETE | `/idoso/deletarIdoso`     | Excluir idoso       |
+
+> A documentação dos endpoints será expandida conforme os módulos restantes forem implementados.
 
 ---
 
@@ -229,8 +269,22 @@ Os módulos já desenvolvidos foram testados individualmente através do Insomni
 
 * [x] Cadastro
 * [x] Listagem
+* [x] Busca por ID
+* [x] Atualização
+* [x] Exclusão
 * [x] Integração com frontend
 * [x] Validação básica
+
+### Idoso
+
+* [x] Cadastro
+* [x] Listagem
+* [x] Busca por ID
+* [x] Atualização
+* [x] Exclusão
+* [x] Validação de campos
+* [x] Validação de CPF duplicado
+* [x] Associação com responsável
 
 ### Frontend
 
@@ -239,6 +293,7 @@ Os módulos já desenvolvidos foram testados individualmente através do Insomni
 * [x] Visualização de responsáveis
 * [x] Cadastro de atividade
 * [x] Visualização da rotina
+* [x] Cadastro e visualização de idosos
 * [x] Aumento do tamanho do texto
 * [x] Mensagens de sucesso e erro
 * [x] Adaptação para telas menores
@@ -302,15 +357,25 @@ O desenvolvimento ocorre de forma incremental.
 * Implementação dos controllers.
 * Criação dos endpoints REST.
 * Testes através do Insomnia.
+* Implementação dos módulos de responsáveis, rotina e idosos.
 
 ### Etapa 3 — Frontend
 
 * Criação da interface web.
 * Integração com a API.
 * Implementação das telas de responsáveis e rotina.
+* Implementação da tela de idosos.
 * Recursos iniciais de acessibilidade.
 
-### Etapa 4 — Expansão
+### Etapa 4 — Organização e refinamento
+
+* Separação e organização da interface.
+* Refinamento dos formulários.
+* Melhoria da experiência do usuário.
+* Ajustes nas regras de negócio.
+* Melhorias na integração entre idosos e responsáveis.
+
+### Etapa 5 — Expansão
 
 * Integração dos módulos desenvolvidos pelos demais integrantes.
 * Implementação dos CRUDs restantes.
@@ -318,7 +383,7 @@ O desenvolvimento ocorre de forma incremental.
 * Desenvolvimento da inteligência artificial.
 * Implementação dos comandos de voz.
 
-### Etapa 5 — Validação
+### Etapa 6 — Validação
 
 * Testes funcionais.
 * Testes de acessibilidade.
@@ -330,6 +395,9 @@ O desenvolvimento ocorre de forma incremental.
 
 ## 🔮 Próximos passos
 
+* Finalizar o refinamento do módulo de idosos.
+* Melhorar a seleção de responsáveis na interface.
+* Separar e organizar melhor os arquivos do frontend.
 * Finalizar os módulos do banco de dados.
 * Implementar os respectivos módulos no backend.
 * Integrar todos os CRUDs.
@@ -363,4 +431,4 @@ Para informações mais detalhadas, consulte:
 
 🟡 **Em desenvolvimento**
 
-O projeto possui backend e frontend funcionais em módulos iniciais e continua em desenvolvimento com a integração das demais funcionalidades da equipe.
+O projeto possui backend e frontend funcionais em módulos iniciais, incluindo responsáveis, rotina e idosos, e continua em desenvolvimento com a integração das demais funcionalidades da equipe.
