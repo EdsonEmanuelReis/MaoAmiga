@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,7 @@
     <title>Mão Amiga</title>
 
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
@@ -28,10 +30,11 @@
 
 </header>
 
-
 <main>
 
-    <!-- HOME -->
+    <!-- =========================
+         HOME
+    ========================== -->
 
     <section id="home" class="tela ativa">
 
@@ -41,7 +44,10 @@
 
             <div>
                 <h2>Olá!</h2>
-                <p>Como podemos ajudar você hoje?</p>
+
+                <p>
+                    Como podemos ajudar você hoje?
+                </p>
             </div>
 
         </div>
@@ -49,7 +55,26 @@
 
         <div class="menu">
 
-            <button class="card-menu" onclick="mostrarTela('responsaveis')">
+            <button
+                    class="card-menu"
+                    onclick="mostrarTela('idosos')"
+            >
+
+                <span>👴</span>
+
+                <strong>Idosos</strong>
+
+                <small>
+                    Gerencie os cadastros dos idosos
+                </small>
+
+            </button>
+
+
+            <button
+                    class="card-menu"
+                    onclick="mostrarTela('responsaveis')"
+            >
 
                 <span>👥</span>
 
@@ -62,7 +87,10 @@
             </button>
 
 
-            <button class="card-menu" onclick="mostrarTela('rotina')">
+            <button
+                    class="card-menu"
+                    onclick="mostrarTela('rotina')"
+            >
 
                 <span>📅</span>
 
@@ -106,11 +134,226 @@
 
 
 
-    <!-- RESPONSÁVEIS -->
+    <!-- =========================
+         IDOSOS
+    ========================== -->
+
+    <section id="idosos" class="tela">
+
+        <button
+                class="voltar"
+                onclick="mostrarTela('home')"
+        >
+            ← Voltar
+        </button>
+
+
+        <div class="titulo-pagina">
+
+            <span>👴</span>
+
+            <div>
+
+                <h2>Idosos</h2>
+
+                <p>
+                    Gerencie os cadastros dos idosos
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+                class="botao-principal"
+                onclick="abrirFormularioIdoso()"
+        >
+            ＋ Adicionar idoso
+        </button>
+
+
+        <div
+                id="mensagemIdoso"
+                class="mensagem escondido"
+        ></div>
+
+
+        <div
+                id="listaIdosos"
+                class="lista"
+        >
+
+            <p class="carregando">
+                Carregando idosos...
+            </p>
+
+        </div>
+
+
+        <!-- FORMULÁRIO IDOSO -->
+
+        <div
+                id="formularioIdoso"
+                class="formulario escondido"
+        >
+
+            <h3>Adicionar idoso</h3>
+
+
+            <label for="nomeIdoso">
+                Nome
+            </label>
+
+            <input
+                    id="nomeIdoso"
+                    type="text"
+                    placeholder="Digite o nome"
+            >
+
+
+            <label for="idadeIdoso">
+                Idade
+            </label>
+
+            <input
+                    id="idadeIdoso"
+                    type="number"
+                    placeholder="Digite a idade"
+            >
+
+
+            <label for="cpfIdoso">
+                CPF
+            </label>
+
+            <input
+                    id="cpfIdoso"
+                    type="text"
+                    placeholder="Digite o CPF"
+            >
+
+
+            <label for="telefoneIdoso">
+                Telefone
+            </label>
+
+            <input
+                    id="telefoneIdoso"
+                    type="text"
+                    placeholder="Digite o telefone"
+            >
+
+
+            <label for="emailIdoso">
+                E-mail
+            </label>
+
+            <input
+                    id="emailIdoso"
+                    type="email"
+                    placeholder="Digite o e-mail"
+            >
+
+
+            <label for="contatoEmergencia">
+                Contato de emergência
+            </label>
+
+            <input
+                    id="contatoEmergencia"
+                    type="text"
+                    placeholder="Nome do contato"
+            >
+
+
+            <label for="telefoneEmergencia">
+                Telefone de emergência
+            </label>
+
+            <input
+                    id="telefoneEmergencia"
+                    type="text"
+                    placeholder="Telefone do contato"
+            >
+
+
+            <label for="idResponsavel">
+                ID do responsável
+            </label>
+
+            <input
+                    id="idResponsavel"
+                    type="number"
+                    placeholder="Digite o ID do responsável"
+            >
+
+
+            <label for="necessitaAcessibilidade">
+                Necessita de acessibilidade
+            </label>
+
+            <select id="necessitaAcessibilidade">
+
+                <option value="true">
+                    Sim
+                </option>
+
+                <option value="false">
+                    Não
+                </option>
+
+            </select>
+
+
+            <label for="tamanhoFonte">
+                Tamanho da fonte
+            </label>
+
+            <input
+                    id="tamanhoFonte"
+                    type="number"
+                    value="16"
+                    min="16"
+                    placeholder="Ex.: 16"
+            >
+
+
+            <div class="botoes-formulario">
+
+                <button
+                        class="botao-cancelar"
+                        onclick="fecharFormularioIdoso()"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                        class="botao-principal"
+                        onclick="cadastrarIdoso()"
+                >
+                    Cadastrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         RESPONSÁVEIS
+    ========================== -->
 
     <section id="responsaveis" class="tela">
 
-        <button class="voltar" onclick="mostrarTela('home')">
+        <button
+                class="voltar"
+                onclick="mostrarTela('home')"
+        >
             ← Voltar
         </button>
 
@@ -120,25 +363,36 @@
             <span>👥</span>
 
             <div>
+
                 <h2>Responsáveis</h2>
 
                 <p>
                     Pessoas que ajudam e cuidam de você
                 </p>
+
             </div>
 
         </div>
 
 
-        <button class="botao-principal" onclick="abrirFormularioResponsavel()">
+        <button
+                class="botao-principal"
+                onclick="abrirFormularioResponsavel()"
+        >
             ＋ Adicionar responsável
         </button>
 
 
-        <div id="mensagemResponsavel" class="mensagem escondido"></div>
+        <div
+                id="mensagemResponsavel"
+                class="mensagem escondido"
+        ></div>
 
 
-        <div id="listaResponsaveis" class="lista">
+        <div
+                id="listaResponsaveis"
+                class="lista"
+        >
 
             <p class="carregando">
                 Carregando responsáveis...
@@ -147,50 +401,55 @@
         </div>
 
 
-        <div id="formularioResponsavel" class="formulario escondido">
+        <!-- FORMULÁRIO RESPONSÁVEL -->
+
+        <div
+                id="formularioResponsavel"
+                class="formulario escondido"
+        >
 
             <h3>Adicionar responsável</h3>
 
 
-            <label for="nome">
+            <label for="nomeResponsavel">
                 Nome
             </label>
 
             <input
-                    id="nome"
+                    id="nomeResponsavel"
                     type="text"
                     placeholder="Digite o nome"
             >
 
 
-            <label for="cpf">
+            <label for="cpfResponsavel">
                 CPF
             </label>
 
             <input
-                    id="cpf"
+                    id="cpfResponsavel"
                     type="text"
                     placeholder="Digite o CPF"
             >
 
 
-            <label for="telefone">
+            <label for="telefoneResponsavel">
                 Telefone
             </label>
 
             <input
-                    id="telefone"
+                    id="telefoneResponsavel"
                     type="text"
                     placeholder="Digite o telefone"
             >
 
 
-            <label for="email">
+            <label for="emailResponsavel">
                 E-mail
             </label>
 
             <input
-                    id="email"
+                    id="emailResponsavel"
                     type="email"
                     placeholder="Digite o e-mail"
             >
@@ -207,17 +466,6 @@
             >
 
 
-            <label for="idIdoso">
-                ID do idoso
-            </label>
-
-            <input
-                    id="idIdoso"
-                    type="number"
-                    placeholder="Digite o ID do idoso"
-            >
-
-
             <div class="botoes-formulario">
 
                 <button
@@ -226,6 +474,7 @@
                 >
                     Cancelar
                 </button>
+
 
                 <button
                         class="botao-principal"
@@ -242,11 +491,16 @@
 
 
 
-    <!-- ROTINA -->
+    <!-- =========================
+         ROTINA
+    ========================== -->
 
     <section id="rotina" class="tela">
 
-        <button class="voltar" onclick="mostrarTela('home')">
+        <button
+                class="voltar"
+                onclick="mostrarTela('home')"
+        >
             ← Voltar
         </button>
 
@@ -276,10 +530,16 @@
         </button>
 
 
-        <div id="mensagemRotina" class="mensagem escondido"></div>
+        <div
+                id="mensagemRotina"
+                class="mensagem escondido"
+        ></div>
 
 
-        <div id="listaRotina" class="lista">
+        <div
+                id="listaRotina"
+                class="lista"
+        >
 
             <p class="carregando">
                 Carregando rotina...
@@ -288,7 +548,12 @@
         </div>
 
 
-        <div id="formularioRotina" class="formulario escondido">
+        <!-- FORMULÁRIO ROTINA -->
+
+        <div
+                id="formularioRotina"
+                class="formulario escondido"
+        >
 
             <h3>Adicionar atividade</h3>
 
@@ -314,6 +579,23 @@
             >
 
 
+            <label for="concluidaRotina">
+                Atividade concluída
+            </label>
+
+            <select id="concluidaRotina">
+
+                <option value="false">
+                    Pendente
+                </option>
+
+                <option value="true">
+                    Concluída
+                </option>
+
+            </select>
+
+
             <div class="botoes-formulario">
 
                 <button
@@ -322,6 +604,7 @@
                 >
                     Cancelar
                 </button>
+
 
                 <button
                         class="botao-principal"
@@ -338,7 +621,6 @@
 
 </main>
 
-
 <footer>
 
     <p>
@@ -346,7 +628,6 @@
     </p>
 
 </footer>
-
 
 <script src="js/script.js"></script>
 

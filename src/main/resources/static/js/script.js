@@ -1,604 +1,839 @@
+const API_IDOSO = "/idoso";
 const API_RESPONSAVEL = "/responsavel";
 const API_ROTINA = "/rotina";
 
+let idosoEditando = null;
+let responsavelEditando = null;
+let rotinaEditando = null;
 
-/* =========================
-   NAVEGAÇÃO
-========================= */
 
-function mostrarTela(tela) {
+// ===============================
+// NAVEGAÇÃO
+// ===============================
 
-    document.querySelectorAll(".tela").forEach(function(elemento) {
+function mostrarTela(nomeTela) {
+    const telas = document.querySelectorAll(".tela");
 
-        elemento.classList.remove("ativa");
-
+    telas.forEach(function (tela) {
+        tela.classList.remove("ativa");
     });
 
+    const tela = document.getElementById(nomeTela);
 
-    document.getElementById(tela).classList.add("ativa");
+    if (tela) {
+        tela.classList.add("ativa");
+    }
+
+    if (nomeTela === "idosos") {
+        listarIdosos();
+    }
+
+    if (nomeTela === "responsaveis") {
+        listarResponsaveis();
+    }
+
+    if (nomeTela === "rotina") {
+        listarRotina();
+    }
+}
 
 
-    if (tela === "responsaveis") {
+// ===============================
+// MENSAGENS
+// ===============================
 
+function mostrarMensagem(idElemento, texto, tipo) {
+    const elemento = document.getElementById(idElemento);
+
+    if (!elemento) {
+        return;
+    }
+
+    elemento.textContent = texto;
+    elemento.className = "mensagem " + tipo;
+}
+
+function esconderMensagem(idElemento) {
+    const elemento = document.getElementById(idElemento);
+
+    if (elemento) {
+        elemento.className = "mensagem escondido";
+        elemento.textContent = "";
+    }
+}
+
+
+// ===============================
+// IDOSO
+// ===============================
+
+function abrirFormularioIdoso() {
+    idosoEditando = null;
+
+    document.getElementById("formularioIdoso").classList.remove("escondido");
+
+    limparFormularioIdoso();
+
+    document.querySelector("#formularioIdoso h3").textContent =
+        "Adicionar idoso";
+}
+
+function fecharFormularioIdoso() {
+    document.getElementById("formularioIdoso").classList.add("escondido");
+
+    idosoEditando = null;
+
+    limparFormularioIdoso();
+}
+
+function limparFormularioIdoso() {
+    document.getElementById("nomeIdoso").value = "";
+    document.getElementById("idadeIdoso").value = "";
+    document.getElementById("cpfIdoso").value = "";
+    document.getElementById("telefoneIdoso").value = "";
+    document.getElementById("emailIdoso").value = "";
+    document.getElementById("contatoEmergencia").value = "";
+    document.getElementById("telefoneEmergencia").value = "";
+    document.getElementById("idResponsavel").value = "";
+    document.getElementById("necessitaAcessibilidade").value = "true";
+    document.getElementById("tamanhoFonte").value = "16";
+}
+
+async function cadastrarIdoso() {
+    const idoso = {
+        nome: document.getElementById("nomeIdoso").value,
+        idade: Number(document.getElementById("idadeIdoso").value),
+        cpf: document.getElementById("cpfIdoso").value,
+        telefone: document.getElementById("telefoneIdoso").value,
+        email: document.getElementById("emailIdoso").value,
+        contatoEmergencia: document.getElementById("contatoEmergencia").value,
+        telefoneEmergencia: document.getElementById("telefoneEmergencia").value,
+        necessitaAcessibilidade:
+            document.getElementById("necessitaAcessibilidade").value === "true",
+        tamanhoFonte: Number(document.getElementById("tamanhoFonte").value),
+        idResponsavel: Number(document.getElementById("idResponsavel").value)
+    };
+
+    try {
+        let url = API_IDOSO + "/cadastrarIdoso";
+        let metodo = "POST";
+
+        if (idosoEditando !== null) {
+            url = API_IDOSO + "/atualizarIdoso?id=" + idosoEditando;
+            metodo = "PUT";
+        }
+
+        const resposta = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(idoso)
+        });
+
+        if (!resposta.ok) {
+            mostrarMensagem(
+                "mensagemIdoso",
+                "Não foi possível salvar o idoso.",
+                "erro"
+            );
+            return;
+        }
+
+        mostrarMensagem(
+            "mensagemIdoso",
+            idosoEditando === null
+                ? "Idoso cadastrado com sucesso!"
+                : "Idoso atualizado com sucesso!",
+            "sucesso"
+        );
+
+        fecharFormularioIdoso();
+        listarIdosos();
+
+    } catch (erro) {
+        console.error(erro);
+
+        mostrarMensagem(
+            "mensagemIdoso",
+            "Erro ao conectar com o servidor.",
+            "erro"
+        );
+    }
+}
+
+async function listarIdosos() {
+    const lista = document.getElementById("listaIdosos");
+
+    if (!lista) {
+        return;
+    }
+
+    lista.innerHTML = "<p class='carregando'>Carregando idosos...</p>";
+
+    try {
+        const resposta = await fetch(
+            API_IDOSO + "/listarIdoso"
+        );
+
+        if (!resposta.ok) {
+            lista.innerHTML = "<p>Não foi possível carregar os idosos.</p>";
+            return;
+        }
+
+        const idosos = await resposta.json();
+
+        lista.innerHTML = "";
+
+        if (idosos.length === 0) {
+            lista.innerHTML = "<p>Nenhum idoso cadastrado.</p>";
+            return;
+        }
+
+        idosos.forEach(function (idoso) {
+            const card = document.createElement("div");
+
+            card.className = "card-responsavel";
+
+            card.innerHTML = `
+                <h3>${idoso.nome}</h3>
+                <p><strong>Idade:</strong> ${idoso.idade}</p>
+                <p><strong>CPF:</strong> ${idoso.cpf}</p>
+                <p><strong>Telefone:</strong> ${idoso.telefone}</p>
+                <p><strong>E-mail:</strong> ${idoso.email}</p>
+                <p><strong>Responsável:</strong> ${idoso.idResponsavel}</p>
+
+                <div class="botoes-formulario">
+                    <button class="botao-principal"
+                        onclick="editarIdoso(${idoso.id})">
+                        Editar
+                    </button>
+
+                    <button class="botao-cancelar"
+                        onclick="excluirIdoso(${idoso.id})">
+                        Excluir
+                    </button>
+                </div>
+            `;
+
+            lista.appendChild(card);
+        });
+
+    } catch (erro) {
+        console.error(erro);
+        lista.innerHTML = "<p>Erro ao conectar com o servidor.</p>";
+    }
+}
+
+async function editarIdoso(id) {
+    try {
+        const resposta = await fetch(
+            API_IDOSO + "/buscarIdosoPorId?id=" + id
+        );
+
+        if (!resposta.ok) {
+            alert("Idoso não encontrado.");
+            return;
+        }
+
+        const idoso = await resposta.json();
+
+        idosoEditando = id;
+
+        document.getElementById("nomeIdoso").value = idoso.nome;
+        document.getElementById("idadeIdoso").value = idoso.idade;
+        document.getElementById("cpfIdoso").value = idoso.cpf;
+        document.getElementById("telefoneIdoso").value = idoso.telefone;
+        document.getElementById("emailIdoso").value = idoso.email;
+        document.getElementById("contatoEmergencia").value =
+            idoso.contatoEmergencia;
+        document.getElementById("telefoneEmergencia").value =
+            idoso.telefoneEmergencia;
+        document.getElementById("idResponsavel").value =
+            idoso.idResponsavel;
+        document.getElementById("necessitaAcessibilidade").value =
+            String(idoso.necessitaAcessibilidade);
+        document.getElementById("tamanhoFonte").value =
+            idoso.tamanhoFonte;
+
+        document.querySelector("#formularioIdoso h3").textContent =
+            "Editar idoso";
+
+        document.getElementById("formularioIdoso")
+            .classList.remove("escondido");
+
+    } catch (erro) {
+        console.error(erro);
+        alert("Erro ao buscar o idoso.");
+    }
+}
+
+async function excluirIdoso(id) {
+    const confirmar = confirm(
+        "Tem certeza que deseja excluir este idoso?"
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch(
+            API_IDOSO + "/deletarIdoso?id=" + id,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!resposta.ok) {
+            mostrarMensagem(
+                "mensagemIdoso",
+                "Não foi possível excluir o idoso.",
+                "erro"
+            );
+            return;
+        }
+
+        mostrarMensagem(
+            "mensagemIdoso",
+            "Idoso excluído com sucesso!",
+            "sucesso"
+        );
+
+        listarIdosos();
+
+    } catch (erro) {
+        console.error(erro);
+
+        mostrarMensagem(
+            "mensagemIdoso",
+            "Erro ao conectar com o servidor.",
+            "erro"
+        );
+    }
+}
+
+
+// ===============================
+// RESPONSÁVEL
+// ===============================
+
+function abrirFormularioResponsavel() {
+    responsavelEditando = null;
+
+    document.getElementById("formularioResponsavel")
+        .classList.remove("escondido");
+
+    limparFormularioResponsavel();
+
+    document.querySelector("#formularioResponsavel h3").textContent =
+        "Adicionar responsável";
+}
+
+function fecharFormularioResponsavel() {
+    document.getElementById("formularioResponsavel")
+        .classList.add("escondido");
+
+    responsavelEditando = null;
+
+    limparFormularioResponsavel();
+}
+
+function limparFormularioResponsavel() {
+    document.getElementById("nomeResponsavel").value = "";
+    document.getElementById("cpfResponsavel").value = "";
+    document.getElementById("telefoneResponsavel").value = "";
+    document.getElementById("emailResponsavel").value = "";
+    document.getElementById("tipoVinculo").value = "";
+}
+
+async function cadastrarResponsavel() {
+    const responsavel = {
+        nome: document.getElementById("nomeResponsavel").value,
+        cpf: document.getElementById("cpfResponsavel").value,
+        telefone: document.getElementById("telefoneResponsavel").value,
+        email: document.getElementById("emailResponsavel").value,
+        tipo_vinculo: document.getElementById("tipoVinculo").value
+    };
+
+    try {
+        let url = API_RESPONSAVEL + "/cadastrarResponsavel";
+        let metodo = "POST";
+
+        if (responsavelEditando !== null) {
+            url =
+                API_RESPONSAVEL +
+                "/atualizarResponsavel?id=" +
+                responsavelEditando;
+
+            metodo = "PUT";
+        }
+
+        const resposta = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(responsavel)
+        });
+
+        if (!resposta.ok) {
+            mostrarMensagem(
+                "mensagemResponsavel",
+                "Não foi possível salvar o responsável.",
+                "erro"
+            );
+            return;
+        }
+
+        mostrarMensagem(
+            "mensagemResponsavel",
+            responsavelEditando === null
+                ? "Responsável cadastrado com sucesso!"
+                : "Responsável atualizado com sucesso!",
+            "sucesso"
+        );
+
+        fecharFormularioResponsavel();
         listarResponsaveis();
 
+    } catch (erro) {
+        console.error(erro);
+
+        mostrarMensagem(
+            "mensagemResponsavel",
+            "Erro ao conectar com o servidor.",
+            "erro"
+        );
     }
-
-
-    if (tela === "rotina") {
-
-        listarRotina();
-
-    }
-
 }
-
-
-/* =========================
-   MENSAGENS
-========================= */
-
-function mostrarMensagem(id, texto, tipo) {
-
-    const mensagem = document.getElementById(id);
-
-    mensagem.textContent = texto;
-
-    mensagem.className = "mensagem " + tipo;
-
-}
-
-
-function esconderMensagem(id) {
-
-    const mensagem = document.getElementById(id);
-
-    mensagem.className = "mensagem escondido";
-
-    mensagem.textContent = "";
-
-}
-
-
-/* =========================
-   RESPONSÁVEIS
-========================= */
 
 async function listarResponsaveis() {
-
     const lista = document.getElementById("listaResponsaveis");
+
+    if (!lista) {
+        return;
+    }
 
     lista.innerHTML =
         "<p class='carregando'>Carregando responsáveis...</p>";
 
-
     try {
-
-        const resposta =
-            await fetch(`${API_RESPONSAVEL}/listarResponsavel`);
-
+        const resposta = await fetch(
+            API_RESPONSAVEL + "/listarResponsavel"
+        );
 
         if (!resposta.ok) {
-
-            throw new Error("Erro ao buscar responsáveis");
-
+            lista.innerHTML =
+                "<p>Não foi possível carregar os responsáveis.</p>";
+            return;
         }
-
 
         const responsaveis = await resposta.json();
 
         lista.innerHTML = "";
 
-
         if (responsaveis.length === 0) {
-
             lista.innerHTML =
                 "<p>Nenhum responsável cadastrado.</p>";
-
             return;
-
         }
 
+        responsaveis.forEach(function (responsavel) {
+            const card = document.createElement("div");
 
-        responsaveis.forEach(function(responsavel) {
-
-            const card =
-                document.createElement("div");
-
-
-            card.className =
-                "card-responsavel";
-
+            card.className = "card-responsavel";
 
             card.innerHTML = `
+                <h3>${responsavel.nome}</h3>
+                <p><strong>CPF:</strong> ${responsavel.cpf}</p>
+                <p><strong>Telefone:</strong> ${responsavel.telefone}</p>
+                <p><strong>E-mail:</strong> ${responsavel.email}</p>
+                <p><strong>Vínculo:</strong> ${responsavel.tipo_vinculo}</p>
 
-                <h3>
-                    👤 ${responsavel.nome}
-                </h3>
+                <div class="botoes-formulario">
+                    <button class="botao-principal"
+                        onclick="editarResponsavel(${responsavel.id})">
+                        Editar
+                    </button>
 
-                <p>
-                    <strong>Vínculo:</strong>
-                    ${responsavel.tipo_vinculo}
-                </p>
-
-                <p>
-                    <strong>Telefone:</strong>
-                    ${responsavel.telefone}
-                </p>
-
-                <p>
-                    <strong>E-mail:</strong>
-                    ${responsavel.email}
-                </p>
-
+                    <button class="botao-cancelar"
+                        onclick="excluirResponsavel(${responsavel.id})">
+                        Excluir
+                    </button>
+                </div>
             `;
 
-
             lista.appendChild(card);
-
         });
 
-
     } catch (erro) {
-
         console.error(erro);
-
         lista.innerHTML =
-            "<p>Não foi possível carregar os responsáveis.</p>";
-
+            "<p>Erro ao conectar com o servidor.</p>";
     }
-
 }
 
-
-/* =========================
-   FORMULÁRIO RESPONSÁVEL
-========================= */
-
-function abrirFormularioResponsavel() {
-
-    esconderMensagem("mensagemResponsavel");
-
-    document
-        .getElementById("formularioResponsavel")
-        .classList.remove("escondido");
-
-}
-
-
-function fecharFormularioResponsavel() {
-
-    document
-        .getElementById("formularioResponsavel")
-        .classList.add("escondido");
-
-}
-
-
-/* =========================
-   CADASTRAR RESPONSÁVEL
-========================= */
-
-async function cadastrarResponsavel() {
-
-    const nome =
-        document.getElementById("nome").value.trim();
-
-
-    const cpf =
-        document.getElementById("cpf").value.trim();
-
-
-    const telefone =
-        document.getElementById("telefone").value.trim();
-
-
-    const email =
-        document.getElementById("email").value.trim();
-
-
-    const tipoVinculo =
-        document.getElementById("tipoVinculo").value.trim();
-
-
-    const idIdoso =
-        document.getElementById("idIdoso").value;
-
-
-    if (
-        !nome ||
-        !cpf ||
-        !telefone ||
-        !email ||
-        !tipoVinculo ||
-        !idIdoso
-    ) {
-
-        mostrarMensagem(
-            "mensagemResponsavel",
-            "Preencha todos os campos.",
-            "erro"
+async function editarResponsavel(id) {
+    try {
+        const resposta = await fetch(
+            API_RESPONSAVEL + "/buscarResponsavelPorId?id=" + id
         );
 
-        return;
-
-    }
-
-
-    const responsavel = {
-
-        nome: nome,
-
-        cpf: cpf,
-
-        telefone: telefone,
-
-        email: email,
-
-        tipo_vinculo: tipoVinculo,
-
-        idIdoso: Number(idIdoso)
-
-    };
-
-
-    try {
-
-        const resposta =
-            await fetch(
-                `${API_RESPONSAVEL}/cadastrarResponsavel`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify(responsavel)
-                }
-            );
-
-
         if (!resposta.ok) {
-
-            const mensagem =
-                await resposta.text();
-
-
-            mostrarMensagem(
-                "mensagemResponsavel",
-                mensagem ||
-                "Não foi possível cadastrar o responsável.",
-                "erro"
-            );
-
+            alert("Responsável não encontrado.");
             return;
-
         }
 
+        const responsavel = await resposta.json();
+
+        responsavelEditando = id;
+
+        document.getElementById("nomeResponsavel").value =
+            responsavel.nome;
+
+        document.getElementById("cpfResponsavel").value =
+            responsavel.cpf;
+
+        document.getElementById("telefoneResponsavel").value =
+            responsavel.telefone;
+
+        document.getElementById("emailResponsavel").value =
+            responsavel.email;
+
+        document.getElementById("tipoVinculo").value =
+            responsavel.tipo_vinculo;
+
+        document.querySelector("#formularioResponsavel h3").textContent =
+            "Editar responsável";
+
+        document.getElementById("formularioResponsavel")
+            .classList.remove("escondido");
+
+    } catch (erro) {
+        console.error(erro);
+        alert("Erro ao buscar o responsável.");
+    }
+}
+
+async function excluirResponsavel(id) {
+    const confirmar = confirm(
+        "Tem certeza que deseja excluir este responsável?"
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch(
+            API_RESPONSAVEL + "/deletarResponsavel?id=" + id,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!resposta.ok) {
+            mostrarMensagem(
+                "mensagemResponsavel",
+                "Não foi possível excluir o responsável.",
+                "erro"
+            );
+            return;
+        }
 
         mostrarMensagem(
             "mensagemResponsavel",
-            "Responsável cadastrado com sucesso!",
+            "Responsável excluído com sucesso!",
             "sucesso"
         );
 
-
-        limparFormularioResponsavel();
-
-        fecharFormularioResponsavel();
-
         listarResponsaveis();
 
-
     } catch (erro) {
-
         console.error(erro);
-
 
         mostrarMensagem(
             "mensagemResponsavel",
-            "Não foi possível conectar ao servidor.",
+            "Erro ao conectar com o servidor.",
             "erro"
         );
-
     }
-
 }
 
 
-/* =========================
-   LIMPAR RESPONSÁVEL
-========================= */
+// ===============================
+// ROTINA
+// ===============================
 
-function limparFormularioResponsavel() {
+function abrirFormularioRotina() {
+    rotinaEditando = null;
 
-    document.getElementById("nome").value = "";
+    document.getElementById("formularioRotina")
+        .classList.remove("escondido");
 
-    document.getElementById("cpf").value = "";
+    limparFormularioRotina();
 
-    document.getElementById("telefone").value = "";
-
-    document.getElementById("email").value = "";
-
-    document.getElementById("tipoVinculo").value = "";
-
-    document.getElementById("idIdoso").value = "";
-
+    document.querySelector("#formularioRotina h3").textContent =
+        "Adicionar atividade";
 }
 
+function fecharFormularioRotina() {
+    document.getElementById("formularioRotina")
+        .classList.add("escondido");
 
-/* =========================
-   ROTINA
-========================= */
+    rotinaEditando = null;
+
+    limparFormularioRotina();
+}
+
+function limparFormularioRotina() {
+    document.getElementById("descricaoRotina").value = "";
+    document.getElementById("horarioRotina").value = "";
+    document.getElementById("concluidaRotina").value = "false";
+}
+
+async function cadastrarRotina() {
+    const rotina = {
+        descri: document.getElementById("descricaoRotina").value,
+        horario: document.getElementById("horarioRotina").value,
+        concluida:
+            document.getElementById("concluidaRotina").value === "true"
+    };
+
+    try {
+        let url = API_ROTINA + "/registrarRotina";
+        let metodo = "POST";
+
+        if (rotinaEditando !== null) {
+            url =
+                API_ROTINA +
+                "/atualizarRotina?id=" +
+                rotinaEditando;
+
+            metodo = "PUT";
+        }
+
+        const resposta = await fetch(url, {
+            method: metodo,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(rotina)
+        });
+
+        if (!resposta.ok) {
+            mostrarMensagem(
+                "mensagemRotina",
+                "Não foi possível salvar a atividade.",
+                "erro"
+            );
+            return;
+        }
+
+        mostrarMensagem(
+            "mensagemRotina",
+            rotinaEditando === null
+                ? "Atividade cadastrada com sucesso!"
+                : "Atividade atualizada com sucesso!",
+            "sucesso"
+        );
+
+        fecharFormularioRotina();
+        listarRotina();
+
+    } catch (erro) {
+        console.error(erro);
+
+        mostrarMensagem(
+            "mensagemRotina",
+            "Erro ao conectar com o servidor.",
+            "erro"
+        );
+    }
+}
 
 async function listarRotina() {
+    const lista = document.getElementById("listaRotina");
 
-    const lista =
-        document.getElementById("listaRotina");
-
+    if (!lista) {
+        return;
+    }
 
     lista.innerHTML =
         "<p class='carregando'>Carregando rotina...</p>";
 
-
     try {
-
-        const resposta =
-            await fetch(`${API_ROTINA}/listarRotina`);
-
+        const resposta = await fetch(
+            API_ROTINA + "/listarRotina"
+        );
 
         if (!resposta.ok) {
-
-            throw new Error("Erro ao buscar rotina");
-
+            lista.innerHTML =
+                "<p>Não foi possível carregar a rotina.</p>";
+            return;
         }
 
-
-        const rotinas =
-            await resposta.json();
-
+        const rotinas = await resposta.json();
 
         lista.innerHTML = "";
 
-
         if (rotinas.length === 0) {
-
             lista.innerHTML =
                 "<p>Nenhuma atividade cadastrada.</p>";
-
             return;
-
         }
 
+        rotinas.forEach(function (rotina) {
+            const card = document.createElement("div");
 
-        rotinas.forEach(function(rotina) {
+            card.className = "card-rotina";
 
-            const card =
-                document.createElement("div");
+            let horario = rotina.horario || "Sem horário";
 
-
-            card.className =
-                "card-rotina";
-
-
-            const horario =
-                rotina.horario
-                    ? rotina.horario.substring(0, 5)
-                    : "Sem horário";
-
-
-            const concluida =
-                rotina.concluida
-                    ? "Concluída"
-                    : "Pendente";
-
+            let status = rotina.concluida
+                ? "Concluída"
+                : "Pendente";
 
             card.innerHTML = `
-
-                <h3>
-                    📅 ${rotina.descri}
-                </h3>
-
-                <p>
-                    <strong>Horário:</strong>
-                    ${horario}
-                </p>
+                <h3>${rotina.descri}</h3>
+                <p><strong>Horário:</strong> ${horario}</p>
 
                 <span class="rotina-status">
-                    ${concluida}
+                    ${status}
                 </span>
 
+                <div class="botoes-formulario">
+                    <button class="botao-principal"
+                        onclick="editarRotina(${rotina.id})">
+                        Editar
+                    </button>
+
+                    <button class="botao-cancelar"
+                        onclick="excluirRotina(${rotina.id})">
+                        Excluir
+                    </button>
+                </div>
             `;
 
-
             lista.appendChild(card);
-
         });
 
-
     } catch (erro) {
-
         console.error(erro);
 
-
         lista.innerHTML =
-            "<p>Não foi possível carregar a rotina.</p>";
-
+            "<p>Erro ao conectar com o servidor.</p>";
     }
-
 }
 
-
-/* =========================
-   FORMULÁRIO ROTINA
-========================= */
-
-function abrirFormularioRotina() {
-
-    esconderMensagem("mensagemRotina");
-
-
-    document
-        .getElementById("formularioRotina")
-        .classList.remove("escondido");
-
-}
-
-
-function fecharFormularioRotina() {
-
-    document
-        .getElementById("formularioRotina")
-        .classList.add("escondido");
-
-}
-
-
-/* =========================
-   CADASTRAR ROTINA
-========================= */
-
-async function cadastrarRotina() {
-
-    const descri =
-        document
-            .getElementById("descricaoRotina")
-            .value
-            .trim();
-
-
-    const horario =
-        document
-            .getElementById("horarioRotina")
-            .value;
-
-
-    if (!descri) {
-
-        mostrarMensagem(
-            "mensagemRotina",
-            "Digite uma atividade.",
-            "erro"
+async function editarRotina(id) {
+    try {
+        const resposta = await fetch(
+            API_ROTINA + "/buscarIdRotina?id=" + id
         );
 
-        return;
-
-    }
-
-
-    const rotina = {
-
-        descri: descri,
-
-        horario: horario || null,
-
-        concluida: false
-
-    };
-
-
-    try {
-
-        const resposta =
-            await fetch(
-                `${API_ROTINA}/registrarRotina`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify(rotina)
-                }
-            );
-
-
         if (!resposta.ok) {
-
-            const mensagem =
-                await resposta.text();
-
-
-            mostrarMensagem(
-                "mensagemRotina",
-                mensagem ||
-                "Não foi possível cadastrar a atividade.",
-                "erro"
-            );
-
+            alert("Atividade não encontrada.");
             return;
-
         }
 
+        const rotina = await resposta.json();
+
+        rotinaEditando = id;
+
+        document.getElementById("descricaoRotina").value =
+            rotina.descri;
+
+        document.getElementById("horarioRotina").value =
+            rotina.horario || "";
+
+        document.getElementById("concluidaRotina").value =
+            String(rotina.concluida);
+
+        document.querySelector("#formularioRotina h3").textContent =
+            "Editar atividade";
+
+        document.getElementById("formularioRotina")
+            .classList.remove("escondido");
+
+    } catch (erro) {
+        console.error(erro);
+        alert("Erro ao buscar a atividade.");
+    }
+}
+
+async function excluirRotina(id) {
+    const confirmar = confirm(
+        "Tem certeza que deseja excluir esta atividade?"
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch(
+            API_ROTINA + "/deletarRotina?id=" + id,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!resposta.ok) {
+            mostrarMensagem(
+                "mensagemRotina",
+                "Não foi possível excluir a atividade.",
+                "erro"
+            );
+            return;
+        }
 
         mostrarMensagem(
             "mensagemRotina",
-            "Atividade adicionada à rotina!",
+            "Atividade excluída com sucesso!",
             "sucesso"
         );
 
-
-        document.getElementById("descricaoRotina").value = "";
-
-        document.getElementById("horarioRotina").value = "";
-
-
-        fecharFormularioRotina();
-
         listarRotina();
 
-
     } catch (erro) {
-
         console.error(erro);
-
 
         mostrarMensagem(
             "mensagemRotina",
-            "Não foi possível conectar ao servidor.",
+            "Erro ao conectar com o servidor.",
             "erro"
         );
-
     }
-
 }
 
 
-/* =========================
-   AUMENTAR FONTE
-========================= */
+// ===============================
+// AUMENTAR FONTE
+// ===============================
 
 function aumentarFonte() {
-
     const corpo = document.body;
-
 
     const tamanhoAtual =
         parseFloat(
-            getComputedStyle(corpo).fontSize
+            window.getComputedStyle(corpo).fontSize
         );
 
-
-    const tamanhoMaximo = 24;
-
-
-    if (tamanhoAtual >= tamanhoMaximo) {
-
-        return;
-
+    if (tamanhoAtual < 24) {
+        corpo.style.fontSize =
+            (tamanhoAtual + 2) + "px";
     }
-
-
-    const novoTamanho =
-        Math.min(
-            tamanhoAtual + 2,
-            tamanhoMaximo
-        );
-
-
-    corpo.style.fontSize =
-        novoTamanho + "px";
-
 }
+
+
+// ===============================
+// INICIALIZAÇÃO
+// ===============================
+
+document.addEventListener("DOMContentLoaded", function () {
+    listarIdosos();
+    listarResponsaveis();
+    listarRotina();
+});
