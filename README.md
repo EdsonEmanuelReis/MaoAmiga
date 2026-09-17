@@ -410,23 +410,6 @@ O desenvolvimento ocorre de forma incremental.
 
 ---
 
-## 📚 Documentação técnica
-
-Para informações mais detalhadas, consulte:
-
-* [Visão geral](docs/01-visao-geral.md)
-* [Requisitos](docs/02-requisitos.md)
-* [Arquitetura](docs/03-arquitetura.md)
-* [Banco de dados](docs/04-banco-de-dados.md)
-* [API](docs/05-api.md)
-* [Frontend](docs/06-frontend.md)
-* [Acessibilidade](docs/07-acessibilidade.md)
-* [Testes](docs/08-testes.md)
-* [Equipe](docs/09-equipe.md)
-* [Próximos passos](docs/10-proximos-passos.md)
-
----
-
 ## 📌 Status
 
 🟡 **Em desenvolvimento**
