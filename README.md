@@ -1,168 +1,194 @@
 # 🤝 Mão Amiga
 
-> Tecnologia e acessibilidade para tornar o dia a dia mais simples, seguro e independente.
+> **Tecnologia para facilitar o dia a dia de pessoas idosas.**
 
 ## 📌 Sobre o projeto
 
-O **Mão Amiga** é um projeto acadêmico voltado ao desenvolvimento de uma solução tecnológica acessível para auxiliar pessoas idosas e pessoas com baixa visão em tarefas do dia a dia.
+O **Mão Amiga** é um projeto acadêmico voltado à utilização da tecnologia para auxiliar pessoas idosas, especialmente aquelas que podem apresentar dificuldades relacionadas à visão e à utilização de dispositivos móveis.
 
-A proposta surgiu a partir da identificação de dificuldades relacionadas à utilização de smartphones, principalmente quando interfaces apresentam textos pequenos, muitos elementos na tela ou funções pouco intuitivas.
+O projeto possui dois módulos que podem funcionar de forma independente:
 
-O projeto busca utilizar tecnologia para **simplificar a interação com o dispositivo**, facilitar o acesso a informações e oferecer recursos que possam contribuir para maior autonomia do usuário.
+* 🖥️ **Sistema/API:** responsável pelo gerenciamento e organização das informações do idoso.
+* 📱 **Aplicativo Android:** responsável pela interface simplificada e pelos recursos de acessibilidade.
 
-O desenvolvimento é realizado como parte de um projeto universitário relacionado ao **ODS 3 — Saúde e Bem-Estar**.
-
----
-
-## 🎯 Objetivo
-
-Desenvolver uma solução tecnológica com foco em **acessibilidade, simplicidade e facilidade de uso**, considerando principalmente as necessidades de pessoas idosas e usuários com baixa visão.
-
-Entre os objetivos estão:
-
-* Facilitar a utilização de recursos digitais.
-* Reduzir a complexidade da interface.
-* Melhorar a visualização de textos e elementos.
-* Organizar informações importantes de maneira simples.
-* Permitir o gerenciamento de informações relacionadas à rotina, idosos e responsáveis.
-* Explorar recursos de inteligência artificial para interação por comandos de voz.
-* Desenvolver uma solução considerando princípios de acessibilidade.
+Apesar de independentes, os módulos podem ser integrados futuramente para que informações do sistema possam ser utilizadas pelo aplicativo, por exemplo, na criação de lembretes.
 
 ---
 
-## 👥 Público-alvo
+# 🎯 Objetivos
 
-O projeto é direcionado principalmente para:
-
-* Pessoas idosas, especialmente usuários a partir de 60 anos.
-* Pessoas com baixa visão.
-* Usuários que apresentam dificuldade na utilização de interfaces digitais convencionais.
-* Familiares ou responsáveis que auxiliam esses usuários.
-
----
-
-## 💡 Problema
-
-A utilização de smartphones pode apresentar dificuldades para determinados usuários devido a fatores como:
-
-* Textos pequenos;
-* Ícones difíceis de identificar;
-* Excesso de informações na tela;
-* Navegação pouco intuitiva;
-* Dificuldade para localizar aplicativos e funções;
-* Dificuldade na realização de determinadas tarefas digitais.
-
-O Mão Amiga busca abordar esses problemas através de uma interface mais simples e recursos voltados à acessibilidade.
+* Facilitar a utilização de dispositivos móveis por pessoas idosas.
+* Desenvolver uma interface simples e acessível.
+* Auxiliar na organização da rotina do idoso.
+* Centralizar informações importantes relacionadas ao acompanhamento do idoso.
+* Permitir que responsáveis tenham acesso às informações necessárias para auxiliar no acompanhamento.
+* Utilizar tecnologia como ferramenta de apoio à autonomia e ao bem-estar.
 
 ---
 
-## 🚀 Funcionalidades
+# 👥 Público-alvo
 
-### Atualmente implementadas
-
-* [x] Estrutura inicial do sistema.
-* [x] Backend desenvolvido com Spring Boot.
-* [x] Integração com banco de dados MySQL.
-* [x] CRUD de responsáveis.
-* [x] CRUD de rotina.
-* [x] CRUD inicial de idosos.
-* [x] API REST.
-* [x] Frontend integrado ao backend.
-* [x] Cadastro de responsáveis pela interface.
-* [x] Visualização de responsáveis.
-* [x] Cadastro de atividades da rotina.
-* [x] Visualização da rotina.
-* [x] Cadastro e gerenciamento de informações do idoso.
-* [x] Associação do idoso a um responsável.
-* [x] Recurso inicial para aumento do tamanho do texto.
-* [x] Mensagens de sucesso e erro diretamente na interface.
-
-### Em desenvolvimento
-
-* [ ] Refinamento do CRUD de idosos.
-* [ ] Melhorias na forma de seleção e identificação do responsável.
-* [ ] Separação e organização da interface em componentes/arquivos menores.
-* [ ] Integração dos demais módulos do banco de dados.
-* [ ] Desenvolvimento dos CRUDs restantes.
-* [ ] Integração dos novos módulos com o frontend.
-* [ ] Recursos de inteligência artificial.
-* [ ] Comandos de voz.
-* [ ] Abertura de aplicativos através de comandos.
-* [ ] Testes adicionais de acessibilidade.
-* [ ] Refinamento da interface.
+* Pessoas idosas, especialmente aquelas com dificuldades de visão ou utilização de smartphones.
+* Familiares e responsáveis que auxiliam no acompanhamento dessas pessoas.
 
 ---
 
-## 👴 Módulo de idosos
+# 🧩 Estrutura do projeto
 
-Durante o desenvolvimento do projeto, **Edson e Diego discutiram a estrutura e as necessidades relacionadas ao módulo de idosos**, considerando tanto as informações necessárias para o sistema quanto a experiência do usuário.
+## 🖥️ Sistema/API
 
-A partir dessas discussões, o módulo passou a considerar informações relacionadas ao idoso, seus dados de contato, acessibilidade e vínculo com um responsável.
+O backend é responsável por **gerenciar e organizar informações relacionadas ao idoso**.
 
-Também foi considerada a necessidade de evitar que detalhes técnicos do banco de dados sejam expostos diretamente ao usuário. Por exemplo, o identificador interno do responsável deve ser utilizado pelo sistema, enquanto a interface deve apresentar informações compreensíveis para o usuário.
+A proposta é que essas informações possam acompanhar o responsável e, futuramente, também alimentar recursos do aplicativo.
 
-O módulo também considera recursos como:
+### 👴 Idoso
 
-* Cadastro de informações básicas do idoso.
-* Informações de contato.
-* Informações relacionadas à acessibilidade.
-* Tamanho da fonte.
-* Contato para emergência.
-* Associação com um responsável.
-* Operações de cadastro, consulta, atualização e exclusão.
+Armazena informações básicas da pessoa acompanhada, incluindo:
 
-Essas funcionalidades continuam sendo refinadas conforme o desenvolvimento do projeto.
+* Nome
+* Idade
+* CPF
+* Telefone
+* E-mail
+* Informações de acessibilidade
+* Tamanho da fonte
+* Responsável vinculado
+
+### 👤 Responsável
+
+Representa a pessoa que auxilia no acompanhamento do idoso.
+
+O responsável pode ser vinculado ao idoso para que as informações relacionadas ao acompanhamento possam ser consultadas por quem auxilia no cuidado.
+
+### 📅 Rotina
+
+Organiza atividades e horários importantes do dia a dia.
+
+Exemplos:
+
+* Tomar medicamento
+* Fazer uma refeição
+* Realizar uma atividade
+* Caminhar
+* Ir a uma consulta
+
+A proposta é que a rotina possa futuramente ser utilizada para **gerar lembretes** e auxiliar o responsável no acompanhamento.
+
+### 💊 Remédios
+
+**Módulo planejado.**
+
+Terá como objetivo organizar informações sobre os medicamentos utilizados pelo idoso e seus respectivos horários.
+
+Futuramente, essas informações poderão ser utilizadas para gerar lembretes no aplicativo.
+
+### 🩺 Consultas
+
+**Módulo planejado.**
+
+Terá como objetivo organizar consultas e compromissos relacionados ao acompanhamento do idoso.
+
+### ❤️ Registro de Saúde
+
+**Módulo planejado.**
+
+Terá como objetivo manter organizadas informações relevantes relacionadas ao acompanhamento da saúde do idoso.
+
+> O projeto não tem como objetivo substituir atendimento médico, diagnóstico ou prontuários hospitalares.
 
 ---
 
-## 🏗️ Arquitetura
+# 📱 Aplicativo Android
 
-O backend utiliza uma arquitetura organizada em camadas:
+O aplicativo possui uma proposta independente do sistema/API.
+
+Seu objetivo principal é **facilitar a utilização do celular por pessoas idosas**, oferecendo uma interface mais simples e recursos de acessibilidade.
+
+O protótipo está sendo desenvolvido utilizando **Android Studio e Kotlin**.
+
+Entre os recursos trabalhados estão:
+
+* 📞 Telefone
+* 💬 Mensagens
+* 📷 Câmera
+* 🖼️ Galeria
+* 🚨 Emergência
+* 📱 Mais aplicativos
+* 🔠 Aumento do tamanho da fonte
+* Interface simplificada
+* Recursos de acessibilidade
+
+O aplicativo **não depende atualmente da API para funcionar**.
+
+Uma possível integração entre os módulos poderá ser desenvolvida posteriormente.
+
+---
+
+# 🔗 Possível integração
+
+Os módulos podem futuramente trabalhar juntos:
 
 ```text
-Frontend
-   │
-   ▼
+Responsável
+     ↓
+Sistema / API
+     ↓
+Informações
+     ↓
+API REST
+     ↓
+Aplicativo Android
+     ↓
+Lembretes e informações para o idoso
+```
+
+Exemplo:
+
+O responsável cadastra um medicamento e seu horário no sistema. Futuramente, o aplicativo poderá utilizar essa informação para apresentar um lembrete ao idoso.
+
+---
+
+# 🏗️ Arquitetura do Backend
+
+O backend segue uma arquitetura em camadas:
+
+```text
 Controller
-   │
-   ▼
+    ↓
 Service
-   │
-   ▼
+    ↓
 Repository
-   │
-   ▼
+    ↓
 JPA / Hibernate
-   │
-   ▼
+    ↓
 MySQL
 ```
 
 ### Controller
 
-Responsável por receber as requisições HTTP e disponibilizar os endpoints da API.
+Recebe as requisições HTTP e disponibiliza os endpoints da API.
 
 ### Service
 
-Responsável pelas regras de negócio e validações.
+Concentra as regras de negócio e validações.
 
 ### Repository
 
-Responsável pela comunicação com o banco de dados através do Spring Data JPA.
+Realiza o acesso aos dados utilizando Spring Data JPA.
 
-### Model
+### JPA / Hibernate
 
-Representa as entidades utilizadas pelo sistema e seus respectivos dados.
+Realiza o mapeamento entre as classes Java e as tabelas do banco.
 
-### Banco de dados
+### MySQL
 
-Responsável pelo armazenamento persistente das informações da aplicação.
+Banco de dados utilizado pelo sistema.
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+# 🛠️ Tecnologias utilizadas
 
-### Backend
+## Backend
 
 * Java
 * Spring Boot
@@ -172,18 +198,23 @@ Responsável pelo armazenamento persistente das informações da aplicação.
 * Lombok
 * API REST
 
-### Banco de dados
+## Banco de dados
 
 * MySQL
 * SQL
 
-### Frontend
+## Interface Web
 
-* HTML5
-* CSS3
+* HTML
+* CSS
 * JavaScript
 
-### Ferramentas
+## Aplicativo
+
+* Kotlin
+* Android Studio
+
+## Ferramentas
 
 * IntelliJ IDEA
 * Insomnia
@@ -192,226 +223,188 @@ Responsável pelo armazenamento persistente das informações da aplicação.
 
 ---
 
-## 📡 API
+# 🔌 API
 
-O projeto possui uma API REST para comunicação entre o frontend e o backend.
-
-### Responsáveis
-
-| Método | Endpoint                            | Função                    |
-| ------ | ----------------------------------- | ------------------------- |
-| POST   | `/responsavel/cadastrarResponsavel` | Cadastrar responsável     |
-| GET    | `/responsavel/listarResponsavel`    | Listar responsáveis       |
-| GET    | `/responsavel/buscarIdResponsavel`  | Buscar responsável por ID |
-| PUT    | `/responsavel/atualizarResponsavel` | Atualizar responsável     |
-| DELETE | `/responsavel/deletarResponsavel`   | Excluir responsável       |
-
-### Rotina
-
-| Método | Endpoint                  | Função                  |
-| ------ | ------------------------- | ----------------------- |
-| POST   | `/rotina/registrarRotina` | Cadastrar atividade     |
-| GET    | `/rotina/listarRotina`    | Listar atividades       |
-| GET    | `/rotina/buscarIdRotina`  | Buscar atividade por ID |
-| PUT    | `/rotina/atualizarRotina` | Atualizar atividade     |
-| DELETE | `/rotina/deletarRotina`   | Excluir atividade       |
-
-### Idosos
-
-| Método | Endpoint                  | Função              |
-| ------ | ------------------------- | ------------------- |
-| POST   | `/idoso/cadastrarIdoso`   | Cadastrar idoso     |
-| GET    | `/idoso/listarIdoso`      | Listar idosos       |
-| GET    | `/idoso/buscarIdosoPorId` | Buscar idoso por ID |
-| PUT    | `/idoso/atualizarIdoso`   | Atualizar idoso     |
-| DELETE | `/idoso/deletarIdoso`     | Excluir idoso       |
-
-> A documentação dos endpoints será expandida conforme os módulos restantes forem implementados.
-
----
-
-## ♿ Acessibilidade
-
-A acessibilidade é um dos principais pontos do projeto.
-
-A interface foi desenvolvida considerando usuários que podem apresentar dificuldades de visualização ou utilização de interfaces convencionais.
-
-Entre as decisões atuais estão:
-
-* Textos com tamanho ampliado;
-* Botões grandes;
-* Interface simplificada;
-* Organização visual dos recursos;
-* Linguagem mais direta;
-* Feedback visual para operações;
-* Recurso de aumento do tamanho do texto;
-* Adaptação para telas menores.
-
-O projeto também considera recomendações e princípios de acessibilidade da Web Accessibility Initiative (WAI/W3C).
-
----
-
-## 🧪 Testes
-
-Os módulos já desenvolvidos foram testados individualmente através do Insomnia e também através da interface web.
-
-### Responsável
-
-* [x] Cadastro
-* [x] Listagem
-* [x] Busca por ID
-* [x] Atualização
-* [x] Exclusão
-* [x] Validação de campos
-* [x] Validação de CPF duplicado
-
-### Rotina
-
-* [x] Cadastro
-* [x] Listagem
-* [x] Busca por ID
-* [x] Atualização
-* [x] Exclusão
-* [x] Integração com frontend
-* [x] Validação básica
-
-### Idoso
-
-* [x] Cadastro
-* [x] Listagem
-* [x] Busca por ID
-* [x] Atualização
-* [x] Exclusão
-* [x] Validação de campos
-* [x] Validação de CPF duplicado
-* [x] Associação com responsável
-
-### Frontend
-
-* [x] Navegação entre telas
-* [x] Cadastro de responsável
-* [x] Visualização de responsáveis
-* [x] Cadastro de atividade
-* [x] Visualização da rotina
-* [x] Cadastro e visualização de idosos
-* [x] Aumento do tamanho do texto
-* [x] Mensagens de sucesso e erro
-* [x] Adaptação para telas menores
-
-> Novos casos de teste serão adicionados conforme os demais módulos forem integrados.
-
----
-
-## 📂 Estrutura da documentação
-
-A documentação técnica do projeto está organizada na pasta `docs/`.
+## 👤 Responsáveis
 
 ```text
-docs/
-├── 01-visao-geral.md
-├── 02-requisitos.md
-├── 03-arquitetura.md
-├── 04-banco-de-dados.md
-├── 05-api.md
-├── 06-frontend.md
-├── 07-acessibilidade.md
-├── 08-testes.md
-├── 09-equipe.md
-└── 10-proximos-passos.md
+POST   /responsavel/cadastrarResponsavel
+GET    /responsavel/listarResponsavel
+GET    /responsavel/buscarResponsavelPorId
+PUT    /responsavel/atualizarResponsavel
+DELETE /responsavel/deletarResponsavel
 ```
 
+## 👴 Idosos
+
+```text
+POST   /idoso/cadastrarIdoso
+GET    /idoso/listarIdoso
+GET    /idoso/buscarIdosoPorId
+PUT    /idoso/atualizarIdoso
+DELETE /idoso/deletarIdoso
+```
+
+## 📅 Rotina
+
+```text
+POST   /rotina/registrarRotina
+GET    /rotina/listarRotina
+GET    /rotina/buscarIdRotina
+PUT    /rotina/atualizarRotina
+DELETE /rotina/deletarRotina
+```
+
+> Os módulos de Remédios, Consultas e Registro de Saúde ainda não possuem endpoints documentados porque estão previstos para etapas posteriores do desenvolvimento.
+
 ---
 
-## 👨‍💻 Equipe
+# ♿ Acessibilidade
 
-O projeto é desenvolvido por uma equipe multidisciplinar, envolvendo desenvolvimento backend, frontend, banco de dados, inteligência artificial e testes.
+O projeto considera recursos para facilitar a utilização por pessoas idosas e pessoas com baixa visão.
 
-| Integrante | Responsabilidade              |
-| ---------- | ----------------------------- |
-| Edson      | Backend / API / Integração    |
-| Lucas      | Backend / Testes              |
-| Luiza      | Inteligência Artificial       |
-| Diego      | Inteligência Artificial       |
-| Karlla     | Frontend / Interface / Testes |
-| Rafael     | Em definição                  |
+Entre os recursos desenvolvidos ou trabalhados:
 
-> As responsabilidades poderão ser atualizadas conforme a evolução do projeto.
+* Textos maiores.
+* Ícones de fácil identificação.
+* Interface simplificada.
+* Botões maiores.
+* Navegação direta.
+* Aumento do tamanho da fonte.
+* Redução da quantidade de elementos por tela.
 
 ---
 
-## 📈 Evolução do projeto
+# 🧪 Testes
 
-O desenvolvimento ocorre de forma incremental.
+### Backend
 
-### Etapa 1 — Estrutura e banco
+Os endpoints são testados utilizando **Insomnia**, verificando:
 
-* Criação do projeto Spring Boot.
-* Configuração do banco MySQL.
-* Criação das entidades.
-* Implementação das primeiras tabelas.
+* Cadastro
+* Consulta
+* Listagem
+* Atualização
+* Exclusão
+* Validações
+* Comunicação com o banco de dados
+
+### Interface Web
+
+São realizados testes relacionados à:
+
+* Navegação.
+* Comunicação com a API.
+* Exibição dos dados.
+* Cadastro e gerenciamento das informações.
+* Aumento da fonte.
+
+### Aplicativo Android
+
+O protótipo é testado quanto à:
+
+* Navegação.
+* Abertura das funções.
+* Tamanho da interface.
+* Aumento da fonte.
+* Persistência das configurações.
+* Facilidade de utilização.
+
+---
+
+# 📚 Documentação
+
+A documentação do projeto está sendo desenvolvida no **GitBook**, contendo informações sobre:
+
+* Objetivos
+* Requisitos
+* Arquitetura
+* Banco de dados
+* API
+* Interface
+* Acessibilidade
+* Testes
+* Evolução do projeto
+
+---
+
+# 👨‍💻 Equipe
+
+| Integrante | Responsabilidade                                        |
+| ---------- | ------------------------------------------------------- |
+| **Edson**  | Backend, API e integração                               |
+| **Lucas**  | Backend e testes                                        |
+| **Luiza**  | Inteligência Artificial                                 |
+| **Diego**  | Inteligência Artificial e discussão do módulo de idosos |
+| **Karlla** | Frontend, interface e testes                            |
+| **Rafael** | A definir                                               |
+
+---
+
+# 🚀 Evolução do projeto
+
+### Etapa 1 — Estrutura e banco de dados
+
+* Definição do problema.
+* Estrutura inicial do projeto.
+* Modelagem do banco de dados.
 
 ### Etapa 2 — Backend
 
-* Implementação dos repositories.
-* Implementação dos services.
-* Implementação dos controllers.
-* Criação dos endpoints REST.
-* Testes através do Insomnia.
-* Implementação dos módulos de responsáveis, rotina e idosos.
+* Desenvolvimento da API REST.
+* Implementação dos CRUDs de Idoso, Responsável e Rotina.
+* Implementação das regras de negócio.
+* Integração com MySQL.
 
-### Etapa 3 — Frontend
+### Etapa 3 — Interface Web
 
-* Criação da interface web.
-* Integração com a API.
-* Implementação das telas de responsáveis e rotina.
-* Implementação da tela de idosos.
-* Recursos iniciais de acessibilidade.
+* Desenvolvimento da interface.
+* Integração inicial com a API.
+* Implementação dos recursos de acessibilidade.
+* Gerenciamento das informações através da interface.
 
-### Etapa 4 — Organização e refinamento
+### Etapa 4 — Aplicativo Android
 
-* Separação e organização da interface.
-* Refinamento dos formulários.
-* Melhoria da experiência do usuário.
-* Ajustes nas regras de negócio.
-* Melhorias na integração entre idosos e responsáveis.
+* Criação do protótipo Android.
+* Desenvolvimento da interface mobile.
+* Implementação dos recursos de acessibilidade.
+* Testes de utilização.
 
-### Etapa 5 — Expansão
+### Próximas etapas
 
-* Integração dos módulos desenvolvidos pelos demais integrantes.
-* Implementação dos CRUDs restantes.
-* Integração com frontend.
-* Desenvolvimento da inteligência artificial.
-* Implementação dos comandos de voz.
-
-### Etapa 6 — Validação
-
-* Testes funcionais.
-* Testes de acessibilidade.
-* Correção de bugs.
-* Testes com usuários.
-* Refinamento da interface.
+* Implementação dos CRUDs de Remédios.
+* Implementação dos CRUDs de Consultas.
+* Implementação dos Registros de Saúde.
+* Evolução da rotina.
+* Desenvolvimento de lembretes.
+* Avaliação da integração entre API e aplicativo.
+* Novos testes de acessibilidade e usabilidade.
 
 ---
 
-## 🔮 Próximos passos
-
-* Finalizar o refinamento do módulo de idosos.
-* Melhorar a seleção de responsáveis na interface.
-* Separar e organizar melhor os arquivos do frontend.
-* Finalizar os módulos do banco de dados.
-* Implementar os respectivos módulos no backend.
-* Integrar todos os CRUDs.
-* Expandir o frontend.
-* Desenvolver a funcionalidade de comandos de voz.
-* Integrar inteligência artificial.
-* Realizar testes de usabilidade e acessibilidade.
-* Melhorar a documentação.
-* Preparar a versão final para apresentação.
-
----
-
-## 📌 Status
+# 📊 Status
 
 🟡 **Em desenvolvimento**
 
-O projeto possui backend e frontend funcionais em módulos iniciais, incluindo responsáveis, rotina e idosos, e continua em desenvolvimento com a integração das demais funcionalidades da equipe.
+### Atualmente implementado
+
+* ✅ Backend Spring Boot
+* ✅ API REST
+* ✅ Banco de dados MySQL
+* ✅ CRUD de Idoso
+* ✅ CRUD de Responsável
+* ✅ CRUD de Rotina
+* ✅ Interface Web
+* ✅ Integração inicial da interface Web com a API
+* ✅ Recursos iniciais de acessibilidade
+* ✅ Protótipo inicial do aplicativo Android
+* 🔄 Desenvolvimento e testes do aplicativo Android
+
+### Ainda em desenvolvimento
+
+* ⏳ CRUD de Remédios
+* ⏳ CRUD de Consultas
+* ⏳ CRUD de Registro de Saúde
+* ⏳ Recursos de lembretes
+* ⏳ Possível integração entre aplicativo e API
+* ⏳ Novos testes de acessibilidade e usabilidade
