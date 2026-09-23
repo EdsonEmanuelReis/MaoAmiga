@@ -22,6 +22,9 @@ public class Rotina {
     @Column(name = "descri", nullable = false, length = 350)
     private String descri;
 
+    @Column(name = "medicamento", length = 350)
+    private String medicamento;
+
     private LocalTime horario;
 
     private Boolean concluida = false;

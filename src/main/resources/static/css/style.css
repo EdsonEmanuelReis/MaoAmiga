@@ -378,6 +378,37 @@ main {
 }
 
 
+/* CARD MEDICAMENTO */
+
+.card-medicamento {
+    background: white;
+
+    border: 1px solid #ddd;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin-bottom: 15px;
+}
+
+
+.card-medicamento h3 {
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+
+.card-medicamento p {
+    font-size: 17px;
+
+    color: #555;
+
+    margin: 6px 0;
+}
+
+
 /* FORMULÁRIO */
 
 .formulario {
@@ -409,7 +440,8 @@ main {
 }
 
 
-.formulario input {
+.formulario input,
+.formulario select {
     width: 100%;
 
     padding: 14px;
@@ -422,7 +454,8 @@ main {
 }
 
 
-.formulario input:focus {
+.formulario input:focus,
+.formulario select:focus {
     outline: none;
 
     border-color: #222;
@@ -494,5 +527,4 @@ footer {
     main {
         width: 92%;
     }
-
 }

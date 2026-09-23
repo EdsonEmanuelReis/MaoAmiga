@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Mão Amiga</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+            rel="stylesheet"
+            href="css/style.css"
+    >
 
 </head>
+
 
 <body>
 
 <header class="topo">
 
     <div class="logo">
-        <span class="logo-icone">🤝</span>
+
+        <span class="logo-icone">
+            🤝
+        </span>
 
         <div>
-            <h1>Mão Amiga</h1>
-            <p>Facilitando o seu dia</p>
+
+            <h1>
+                Mão Amiga
+            </h1>
+
+            <p>
+                Facilitando o seu dia
+            </p>
+
         </div>
+
     </div>
 
-    <button class="botao-fonte" onclick="aumentarFonte()">
+
+    <button
+            class="botao-fonte"
+            onclick="aumentarFonte()"
+    >
         🔠 Aumentar texto
     </button>
 
 </header>
+
 
 <main>
 
@@ -36,18 +62,27 @@
          HOME
     ========================== -->
 
-    <section id="home" class="tela ativa">
+    <section
+            id="home"
+            class="tela ativa"
+    >
 
         <div class="boas-vindas">
 
-            <span>👋</span>
+            <span>
+                👋
+            </span>
 
             <div>
-                <h2>Olá!</h2>
+
+                <h2>
+                    Olá!
+                </h2>
 
                 <p>
                     Como podemos ajudar você hoje?
                 </p>
+
             </div>
 
         </div>
@@ -60,9 +95,13 @@
                     onclick="mostrarTela('idosos')"
             >
 
-                <span>👴</span>
+                <span>
+                    👴
+                </span>
 
-                <strong>Idosos</strong>
+                <strong>
+                    Idosos
+                </strong>
 
                 <small>
                     Gerencie os cadastros dos idosos
@@ -76,9 +115,13 @@
                     onclick="mostrarTela('responsaveis')"
             >
 
-                <span>👥</span>
+                <span>
+                    👥
+                </span>
 
-                <strong>Responsáveis</strong>
+                <strong>
+                    Responsáveis
+                </strong>
 
                 <small>
                     Gerencie as pessoas responsáveis
@@ -92,9 +135,13 @@
                     onclick="mostrarTela('rotina')"
             >
 
-                <span>📅</span>
+                <span>
+                    📅
+                </span>
 
-                <strong>Minha rotina</strong>
+                <strong>
+                    Minha rotina
+                </strong>
 
                 <small>
                     Veja seus horários e atividades
@@ -103,11 +150,37 @@
             </button>
 
 
-            <button class="card-menu">
+            <button
+                    class="card-menu"
+                    onclick="mostrarTela('medicamentos')"
+            >
 
-                <span>📱</span>
+                <span>
+                    💊
+                </span>
 
-                <strong>Mais aplicativos</strong>
+                <strong>
+                    Medicamentos
+                </strong>
+
+                <small>
+                    Gerencie seus medicamentos
+                </small>
+
+            </button>
+
+
+            <button
+                    class="card-menu"
+            >
+
+                <span>
+                    📱
+                </span>
+
+                <strong>
+                    Mais aplicativos
+                </strong>
 
                 <small>
                     Acesse seus aplicativos favoritos
@@ -116,11 +189,17 @@
             </button>
 
 
-            <button class="card-menu">
+            <button
+                    class="card-menu"
+            >
 
-                <span>⚙️</span>
+                <span>
+                    ⚙️
+                </span>
 
-                <strong>Configurações</strong>
+                <strong>
+                    Configurações
+                </strong>
 
                 <small>
                     Personalize sua experiência
@@ -133,12 +212,14 @@
     </section>
 
 
-
     <!-- =========================
          IDOSOS
     ========================== -->
 
-    <section id="idosos" class="tela">
+    <section
+            id="idosos"
+            class="tela"
+    >
 
         <button
                 class="voltar"
@@ -150,11 +231,15 @@
 
         <div class="titulo-pagina">
 
-            <span>👴</span>
+            <span>
+                👴
+            </span>
 
             <div>
 
-                <h2>Idosos</h2>
+                <h2>
+                    Idosos
+                </h2>
 
                 <p>
                     Gerencie os cadastros dos idosos
@@ -191,14 +276,14 @@
         </div>
 
 
-        <!-- FORMULÁRIO IDOSO -->
-
         <div
                 id="formularioIdoso"
                 class="formulario escondido"
         >
 
-            <h3>Adicionar idoso</h3>
+            <h3>
+                Adicionar idoso
+            </h3>
 
 
             <label for="nomeIdoso">
@@ -343,12 +428,14 @@
     </section>
 
 
-
     <!-- =========================
          RESPONSÁVEIS
     ========================== -->
 
-    <section id="responsaveis" class="tela">
+    <section
+            id="responsaveis"
+            class="tela"
+    >
 
         <button
                 class="voltar"
@@ -360,11 +447,15 @@
 
         <div class="titulo-pagina">
 
-            <span>👥</span>
+            <span>
+                👥
+            </span>
 
             <div>
 
-                <h2>Responsáveis</h2>
+                <h2>
+                    Responsáveis
+                </h2>
 
                 <p>
                     Pessoas que ajudam e cuidam de você
@@ -401,14 +492,14 @@
         </div>
 
 
-        <!-- FORMULÁRIO RESPONSÁVEL -->
-
         <div
                 id="formularioResponsavel"
                 class="formulario escondido"
         >
 
-            <h3>Adicionar responsável</h3>
+            <h3>
+                Adicionar responsável
+            </h3>
 
 
             <label for="nomeResponsavel">
@@ -490,12 +581,14 @@
     </section>
 
 
-
     <!-- =========================
          ROTINA
     ========================== -->
 
-    <section id="rotina" class="tela">
+    <section
+            id="rotina"
+            class="tela"
+    >
 
         <button
                 class="voltar"
@@ -507,11 +600,15 @@
 
         <div class="titulo-pagina">
 
-            <span>📅</span>
+            <span>
+                📅
+            </span>
 
             <div>
 
-                <h2>Minha rotina</h2>
+                <h2>
+                    Minha rotina
+                </h2>
 
                 <p>
                     Organize seus horários e atividades
@@ -548,14 +645,14 @@
         </div>
 
 
-        <!-- FORMULÁRIO ROTINA -->
-
         <div
                 id="formularioRotina"
                 class="formulario escondido"
         >
 
-            <h3>Adicionar atividade</h3>
+            <h3>
+                Adicionar atividade
+            </h3>
 
 
             <label for="descricaoRotina">
@@ -619,7 +716,172 @@
 
     </section>
 
+
+    <!-- =========================
+         MEDICAMENTOS
+    ========================== -->
+
+    <section
+            id="medicamentos"
+            class="tela"
+    >
+
+        <button
+                class="voltar"
+                onclick="mostrarTela('home')"
+        >
+            ← Voltar
+        </button>
+
+
+        <div class="titulo-pagina">
+
+            <span>
+                💊
+            </span>
+
+            <div>
+
+                <h2>
+                    Medicamentos
+                </h2>
+
+                <p>
+                    Gerencie seus medicamentos
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+                class="botao-principal"
+                onclick="abrirFormularioMedicamento()"
+        >
+            ＋ Adicionar medicamento
+        </button>
+
+
+        <div
+                id="mensagemMedicamento"
+                class="mensagem escondido"
+        ></div>
+
+
+        <div
+                id="listaMedicamentos"
+                class="lista"
+        >
+
+            <p class="carregando">
+                Carregando medicamentos...
+            </p>
+
+        </div>
+
+
+        <div
+                id="formularioMedicamento"
+                class="formulario escondido"
+        >
+
+            <h3>
+                Adicionar medicamento
+            </h3>
+
+
+            <label for="nomeMedicamento">
+                Nome do medicamento
+            </label>
+
+            <input
+                    id="nomeMedicamento"
+                    type="text"
+                    placeholder="Ex.: Dipirona"
+            >
+
+
+            <label for="dosagemMedicamento">
+                Dosagem
+            </label>
+
+            <input
+                    id="dosagemMedicamento"
+                    type="text"
+                    placeholder="Ex.: 500mg"
+            >
+
+
+            <label for="quantidadeMedicamento">
+                Quantidade
+            </label>
+
+            <input
+                    id="quantidadeMedicamento"
+                    type="number"
+                    min="0"
+                    placeholder="Ex.: 20"
+            >
+
+
+            <label for="validadeMedicamento">
+                Validade
+            </label>
+
+            <input
+                    id="validadeMedicamento"
+                    type="date"
+            >
+
+
+            <label for="intervaloMedicamento">
+                Intervalo em horas
+            </label>
+
+            <input
+                    id="intervaloMedicamento"
+                    type="number"
+                    min="1"
+                    placeholder="Ex.: 8"
+            >
+
+
+            <label for="horarioMedicamento">
+                Horário
+            </label>
+
+            <input
+                    id="horarioMedicamento"
+                    type="time"
+            >
+
+
+            <div class="botoes-formulario">
+
+                <button
+                        class="botao-cancelar"
+                        onclick="fecharFormularioMedicamento()"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                        class="botao-principal"
+                        onclick="cadastrarMedicamento()"
+                >
+                    Cadastrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
 </main>
+
 
 <footer>
 
@@ -629,7 +891,13 @@
 
 </footer>
 
-<script src="js/script.js"></script>
+
+<script src="js/main.js"></script>
+<script src="js/idoso.js"></script>
+<script src="js/responsavel.js"></script>
+<script src="js/rotina.js"></script>
+<script src="js/medicamento.js"></script>
 
 </body>
+
 </html>
